@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>MYSTIC SHELEST — Таро · Личные консультации</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,560;0,9..144,650;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  /* ============ ДИЗАЙН-ТОКЕНЫ: глубокие драгоценные тона ============ */
+  :root{
+    --bg:#241833;
+    --bg-deep:#170F22;
+    --bg-card:#33234A;
+    --bg-card-2:#3E2B57;
+    --line:#4E3A6B;
+
+    --cream:#F7EEDA;
+    --cream-soft:#C9BBA3;
+
+    --gold:#D9AE63;
+    --gold-bright:#F3D28E;
+    --emerald2:#3FA184;
+    --ruby:#D66385;
+    --violet:#9C81CC;
+
+    --f-display:'Fraunces', serif;
+    --f-body:'Karla', sans-serif;
+    --f-accent:'Caveat', cursive;
+  }
+
+  *,*::before,*::after{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:radial-gradient(ellipse 120% 60% at 50% 0%, var(--bg-card-2) 0%, var(--bg) 45%, var(--bg-deep) 100%);
+    color:var(--cream);
+    font-family:var(--f-body);
+    font-size:16.5px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (min-width:560px){ body{padding:28px 0; background-color:#0E0916;} }
+  .app{max-width:480px; margin:0 auto; position:relative; overflow:hidden;}
+  @media (min-width:560px){ .app{box-shadow:0 20px 80px rgba(0,0,0,.55); border-radius:16px;} }
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; border:none; background:none; cursor:pointer; color:inherit;}
+  a{color:inherit;}
+  ul{list-style:none;}
+  :focus-visible{outline:2px solid var(--gold-bright); outline-offset:3px;}
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  .eyebrow{font-family:var(--f-body); font-weight:700; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-bright);}
+  h1,h2,h3{font-family:var(--f-display); font-weight:560; color:var(--cream);}
+  .section-title{font-size:23px; text-align:center; margin-bottom:6px;}
+  .section-kicker{text-align:center; color:var(--cream-soft); font-size:14.5px; margin-bottom:26px;}
+  .section{padding:52px 24px; position:relative;}
+
+  .divider{display:flex; align-items:center; justify-content:center; gap:12px; padding:0 24px;}
+  .divider::before,.divider::after{content:""; height:1px; flex:1; background:linear-gradient(90deg,transparent,var(--line),transparent);}
+  .divider svg{width:16px; height:16px; flex-shrink:0; color:var(--gold);}
+
+  /* мерцающие искры */
+  .spark{position:absolute; color:var(--gold-bright); opacity:.75; animation:twinkle 3.4s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.25; transform:scale(.8);} 50%{opacity:.9; transform:scale(1.15);}}
+
+  /* ============ HERO ============ */
+  .hero{padding:30px 24px 22px; text-align:center; overflow:hidden;}
+  .hero-glow{position:absolute; top:-8%; left:50%; transform:translateX(-50%); width:380px; height:380px; border-radius:50%;
+    background:radial-gradient(circle, rgba(217,174,99,.30), rgba(63,161,132,.10) 55%, transparent 72%); filter:blur(30px); pointer-events:none;
+    animation:pulse 7s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.6; transform:translateX(-50%) scale(1);} 50%{opacity:1; transform:translateX(-50%) scale(1.08);}}
+
+  .wordmark-row{position:relative; display:flex; align-items:center; justify-content:center; gap:9px; margin-bottom:8px;}
+  .wordmark-row svg{width:20px; height:20px; color:var(--gold);}
+  .wordmark{
+    font-family:var(--f-display); font-style:italic; font-weight:560; font-size:24px; letter-spacing:.01em;
+    background:linear-gradient(100deg, var(--gold-bright), var(--gold) 45%, var(--gold-bright));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  .hero-photo-wrap{position:relative; margin:0 auto 20px; width:250px;}
+  .hero-photo-frame{position:relative;}
+  .hero-photo{
+    width:250px; height:250px; object-fit:cover; object-position:center 22%; display:block;
+    -webkit-mask-image:radial-gradient(circle at 50% 50%, black 38%, transparent 66%);
+    mask-image:radial-gradient(circle at 50% 50%, black 38%, transparent 66%);
+  }
+  .hero-photo-glow-ring{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:216px; height:216px; border-radius:50%; pointer-events:none;
+    border:1.5px solid var(--gold-bright);
+    box-shadow:0 0 26px 6px rgba(243,210,142,.55), inset 0 0 18px 3px rgba(243,210,142,.3);
+    animation:ringGlow 4s ease-in-out infinite;
+  }
+  @keyframes ringGlow{
+    0%,100%{box-shadow:0 0 26px 6px rgba(243,210,142,.45), inset 0 0 18px 3px rgba(243,210,142,.22);}
+    50%{box-shadow:0 0 34px 9px rgba(243,210,142,.7), inset 0 0 22px 4px rgba(243,210,142,.4);}
+  }
+
+  .hero p.eyebrow{display:block; margin-bottom:10px; position:relative;}
+  .hero-intro-wrap{
+    position:relative; margin:34px auto 24px; max-width:360px;
+    border-radius:22px; padding:2px;
+    background:linear-gradient(155deg, var(--violet), var(--gold-bright) 50%, var(--emerald2) 100%);
+  }
+  .hero-intro-card{
+    position:relative; background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card));
+    border-radius:20px; padding:26px 22px; overflow:visible;
+  }
+  .hero-intro{color:var(--cream); font-size:14.5px; line-height:1.66; text-align:center; position:relative;}
+  .hero-intro .lead{font-family:var(--f-display); font-style:italic; font-weight:560; font-size:20px; color:var(--gold-bright); display:block; margin-bottom:10px;}
+  .celestial{position:absolute; color:var(--gold-bright); filter:drop-shadow(0 2px 6px rgba(0,0,0,.35));}
+  .celestial.float{animation:float 5s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);}}
+
+  .btn-primary{
+    display:block; width:100%; padding:16px; border-radius:14px; text-align:center;
+    background:linear-gradient(100deg, var(--gold), var(--gold-bright)); color:#2A1A0F; font-family:var(--f-body); font-size:14.5px; font-weight:700;
+    letter-spacing:.02em; box-shadow:0 12px 26px rgba(217,174,99,.35); transition:.2s; position:relative;
+  }
+  .btn-primary:active{transform:scale(.98);}
+  .btn-ghost{
+    display:block; width:100%; padding:13px; border-radius:14px; text-align:center;
+    border:1.5px solid var(--gold); color:var(--cream); font-family:var(--f-body); font-size:14px; font-weight:600;
+  }
+  .hero-signature{font-family:var(--f-accent); font-size:22px; color:var(--gold-bright); margin-top:16px; position:relative;}
+
+  /* ============ О НАТАЛЬЕ ============ */
+  .about{text-align:center;}
+  .about-bio-wrap{
+    position:relative; margin:0 auto 22px; max-width:380px;
+    border-radius:20px; padding:2px;
+    background:linear-gradient(155deg, var(--ruby), var(--gold-bright) 55%, var(--gold) 100%);
+  }
+  .about-bio-card{position:relative; background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card)); border-radius:18px; padding:24px 20px; overflow:visible;}
+  .about-bio{color:var(--cream); font-size:15px; line-height:1.68; text-align:center; position:relative;}
+  .about-bio-list-wrap{display:flex; justify-content:center; margin:12px 0;}
+  .about-bio-list{text-align:left; font-size:14px; color:var(--cream-soft); max-width:300px; line-height:1.55;}
+  .about-bio-list li{padding:5px 0 5px 16px; position:relative;}
+  .about-bio-list li::before{content:"·"; position:absolute; left:2px; top:5px; color:var(--gold-bright); font-weight:700;}
+  .wand{position:absolute; color:var(--gold); opacity:.5;}
+  .ornament{position:absolute; color:var(--gold); opacity:.4;}
+  .lotus-glow{
+    display:block; width:104px; height:auto; margin:0 auto 2px; color:var(--violet);
+    filter:drop-shadow(0 0 8px rgba(156,129,204,.5)) drop-shadow(0 0 16px rgba(156,129,204,.25));
+    animation:lotusGlow 4.5s ease-in-out infinite;
+  }
+  @keyframes lotusGlow{
+    0%,100%{filter:drop-shadow(0 0 8px rgba(156,129,204,.5)) drop-shadow(0 0 16px rgba(156,129,204,.25));}
+    50%{filter:drop-shadow(0 0 14px rgba(156,129,204,.85)) drop-shadow(0 0 26px rgba(156,129,204,.45));}
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px; justify-content:center;}
+  .tag{font-size:12px; font-weight:600; border:1px solid var(--line); border-radius:20px; padding:7px 14px; color:var(--gold-bright); background:var(--bg-card);}
+
+  /* ============ ГЛАВНОЕ: личная консультация ============ */
+  .consult-wrap{position:relative; padding:2px; border-radius:24px; max-width:380px; margin:0 auto; background:linear-gradient(155deg, var(--gold-bright), var(--emerald2) 55%, var(--gold) 100%);}
+  .consult-card{
+    position:relative; background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card));
+    border-radius:22px; padding:30px 24px; text-align:center; overflow:hidden;
+  }
+  .consult-shine{position:absolute; top:-50%; left:-20%; width:60%; height:200%; background:linear-gradient(120deg, transparent, rgba(255,255,255,.09), transparent); animation:shine 6s ease-in-out infinite;}
+  .consult-bg-photo{
+    position:absolute; inset:-12px; z-index:0; background-image:url('natalia-hero-v3.jpg');
+    background-size:cover; background-position:center 22%;
+    filter:blur(7px) brightness(.5) saturate(.85);
+    opacity:.6;
+  }
+  .consult-bg-tint{position:absolute; inset:-12px; z-index:0; background:linear-gradient(165deg, rgba(62,43,87,.6), rgba(51,35,74,.75));}
+  @keyframes shine{0%{transform:translateX(-40%);} 50%{transform:translateX(220%);} 100%{transform:translateX(220%);}}
+  .consult-card .eyebrow{display:block; margin-bottom:10px; position:relative;}
+  .consult-card h2{font-size:24px; margin-bottom:12px; position:relative;}
+  .consult-card p{color:var(--cream-soft); font-size:15.5px; margin-bottom:18px; position:relative;}
+  .consult-price{font-family:var(--f-display); font-size:32px; color:var(--gold-bright); margin-bottom:18px; position:relative;}
+  .consult-price sup{font-size:14px; color:var(--cream-soft); font-family:var(--f-body);}
+  .consult-note{font-size:12.5px; color:var(--cream-soft); margin-top:12px; opacity:.85; position:relative;}
+  .practice-item{border-top:1px solid var(--line); position:relative;}
+  .practice-item:first-of-type{border-top:none;}
+  .practice-head{width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 2px; text-align:left; font-family:var(--f-body); font-weight:700; font-size:14px; color:var(--gold-bright);}
+  .practice-chevron{transition:transform .25s; flex-shrink:0; color:var(--cream-soft);}
+  .practice-item.open .practice-chevron{transform:rotate(180deg);}
+  .practice-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .practice-item.open .practice-body{max-height:160px;}
+  .practice-body p{padding:0 2px 6px; font-size:13.5px; color:var(--cream-soft); line-height:1.55; text-align:left;}
+  .practice-body .service-order{margin:0 2px 14px;}
+  .practice-item.practice-item-large.open .practice-body{max-height:360px;}
+  .practice-item.practice-item-xlarge.open .practice-body{max-height:560px;}
+  .practice-item.practice-item-xxlarge.open .practice-body{max-height:1100px;}
+
+  /* ============ ЕЩЁ СПОСОБЫ ============ */
+  .category-tabs{display:flex; gap:14px;}
+  .category-btn{
+    flex:1; padding:24px 12px; border-radius:20px; text-align:center; cursor:pointer; border:2px solid transparent;
+    font-family:var(--f-display); font-style:italic; font-weight:650; font-size:20px; letter-spacing:.01em;
+    background:linear-gradient(155deg, #F0A868, #DDA84A); color:#2A1A0F;
+    box-shadow:0 14px 30px rgba(240,168,104,.45);
+    transition:.25s;
+  }
+  .category-btn.active{
+    border-color:var(--cream); box-shadow:0 18px 38px rgba(240,168,104,.65); transform:scale(1.03);
+  }
+  .category-btn:not(.active){
+    opacity:.9;
+  }
+  .category-panel{display:none;}
+  .category-panel.active{display:block;}
+  .tarot-deck{position:relative; height:190px; display:flex; align-items:center; justify-content:center;}
+  .tarot-card-back{
+    position:absolute; width:104px; height:156px; border-radius:11px;
+    background:linear-gradient(155deg, var(--bg-card-2), var(--bg-card));
+    border:2px solid var(--gold); box-shadow:0 10px 22px rgba(0,0,0,.45);
+    transition:transform .3s ease;
+  }
+  .tarot-card-back::before{
+    content:''; position:absolute; inset:9px; border:1px solid var(--gold-bright); border-radius:7px; opacity:.55;
+  }
+  .tarot-card-back::after{
+    content:'✦'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    color:var(--gold-bright); font-size:20px; opacity:.6;
+  }
+  .tarot-card-back:nth-child(1){transform:rotate(-9deg) translateX(-16px);}
+  .tarot-card-back:nth-child(2){transform:rotate(0deg) translateY(-4px); z-index:1;}
+  .tarot-card-back:nth-child(3){transform:rotate(9deg) translateX(16px);}
+  .tarot-deck.shuffling .tarot-card-back{animation:shuffleCards .18s ease-in-out infinite alternate;}
+  .tarot-deck.shuffling .tarot-card-back:nth-child(1){animation-delay:0s;}
+  .tarot-deck.shuffling .tarot-card-back:nth-child(2){animation-delay:.06s;}
+  .tarot-deck.shuffling .tarot-card-back:nth-child(3){animation-delay:.12s;}
+  @keyframes shuffleCards{
+    0%{transform:translateX(-26px) rotate(-12deg) translateY(0);}
+    50%{transform:translateX(26px) rotate(12deg) translateY(-10px);}
+    100%{transform:translateX(-18px) rotate(-7deg) translateY(0);}
+  }
+  .tarot-result-card{
+    display:block; width:100%; max-width:320px; padding:24px 20px; border-radius:16px;
+    margin:0 auto; box-sizing:border-box;
+    background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card));
+    border:1.5px solid var(--gold-bright); box-shadow:0 14px 30px rgba(0,0,0,.4);
+    animation:cardReveal .55s ease;
+  }
+  .spread-result-item{
+    background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card));
+    border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-bottom:12px;
+  }
+  .spread-result-item .pos-label{
+    font-family:var(--f-body); font-weight:700; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--violet); margin-bottom:6px;
+  }
+  .spread-result-item .card-name{
+    font-family:var(--f-display); font-weight:600; font-size:17px; color:var(--gold-bright); margin-bottom:6px;
+  }
+  .spread-result-item .card-meaning{font-size:13.5px; color:var(--cream-soft); line-height:1.5;}
+  @keyframes cardReveal{
+    from{transform:rotateY(90deg) scale(.85); opacity:0;}
+    to{transform:rotateY(0) scale(1); opacity:1;}
+  }
+  .tabs{display:flex; gap:8px; background:var(--bg-card); border:1px solid var(--line); border-radius:12px; padding:4px; margin-bottom:22px;}
+  .tab-btn{flex:1; padding:10px 8px; border-radius:9px; font-family:var(--f-body); font-size:13px; font-weight:700; color:var(--cream-soft); transition:.25s;}
+  .tab-btn.active{background:linear-gradient(100deg, var(--gold), var(--gold-bright)); color:#2A1A0F;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  .sub-card{background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card)); border:1px solid var(--line); border-radius:16px; padding:22px; text-align:center;}
+  .sub-price{font-family:var(--f-display); font-size:28px; color:var(--gold-bright); margin:6px 0 2px;}
+  .sub-price sup{font-size:14px; color:var(--cream-soft); font-family:var(--f-body);}
+  .sub-period{color:var(--cream-soft); font-size:13.5px; margin-bottom:16px;}
+  .sub-perks{text-align:left; margin-bottom:18px;}
+  .sub-perks li{display:flex; gap:10px; padding:8px 0; border-top:1px solid var(--line); font-size:14.5px; color:var(--cream-soft);}
+  .sub-perks li:first-child{border-top:none;}
+  .sub-perks li::before{content:"✦"; color:var(--gold); flex-shrink:0;}
+
+  .discount-banner{font-size:12.5px; color:var(--gold-bright); text-align:center; border:1px dashed var(--line); border-radius:10px; padding:9px 12px; margin-bottom:16px; background:var(--bg-card);}
+
+  .service-grid{display:grid; gap:12px;}
+  .service-card{background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card)); border:1px solid var(--line); border-radius:14px; padding:16px; display:flex; gap:13px; align-items:flex-start; transition:.2s;}
+  .service-icon{width:38px; height:38px; flex-shrink:0; color:var(--gold);}
+  .service-body{flex:1;}
+  .service-body h3{font-size:15.5px; margin-bottom:4px; font-weight:560;}
+  .service-body p{font-size:13.5px; color:var(--cream-soft); margin-bottom:10px;}
+  .service-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .price-now{font-family:var(--f-display); color:var(--ruby); font-size:15.5px; font-weight:560;}
+  .price-was{font-size:12px; color:var(--cream-soft); text-decoration:line-through; margin-left:6px; opacity:.7;}
+  .price-note{font-size:10.5px; color:var(--cream-soft); opacity:.8; display:block; margin-top:2px;}
+  .telegram-callout{
+    background:linear-gradient(155deg, #F0A868, #DDA84A) !important; border:none;
+    border-radius:14px; padding:16px 14px; margin:14px auto 0; max-width:100%;
+    box-shadow:0 10px 22px rgba(240,168,104,.4);
+    color:#2A1A0F !important; font-family:var(--f-display); font-style:italic; font-weight:650; font-size:16.5px; letter-spacing:.01em;
+    text-align:center; line-height:1.4;
+  }
+  .service-order{font-size:11.5px; letter-spacing:.03em; text-transform:uppercase; font-weight:700; color:var(--bg-deep); background:var(--gold-bright); border-radius:8px; padding:7px 12px; flex-shrink:0;}
+
+  /* ============ РАСКЛАДЫ ============ */
+  .spread-scroll{display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; margin:0 -24px; padding-left:24px; padding-right:24px; scrollbar-width:none;}
+  .spread-scroll::-webkit-scrollbar{display:none;}
+  .spread-card{flex:0 0 164px; background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card)); border:1px solid var(--line); border-radius:14px; padding:16px;}
+  .spread-card svg{width:100%; height:86px; margin-bottom:12px;}
+  .spread-card h3{font-size:14px; margin-bottom:4px; font-weight:560;}
+  .spread-card p{font-size:12px; color:var(--cream-soft); line-height:1.45;}
+  .spread-dot{fill:var(--gold);}
+  .spread-line{stroke:var(--line); stroke-width:1.5;}
+  .spread-card-rect{fill:var(--bg); stroke:var(--gold); stroke-width:1.3; rx:2;}
+  .spread-card-rect-x{fill:var(--ruby); stroke:var(--ruby); opacity:.85; rx:2;}
+
+  /* ============ АТЛАС АРКАНОВ ============ */
+  .arcana-list{display:flex; flex-direction:column; gap:8px;}
+  .arcana-item{background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card)); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .arcana-head{width:100%; display:flex; align-items:center; gap:12px; padding:13px 16px; text-align:left;}
+  .arcana-num{font-family:var(--f-display); color:var(--gold-bright); font-size:13px; width:24px; flex-shrink:0;}
+  .arcana-name{font-family:var(--f-body); font-weight:700; font-size:14.5px; flex:1; color:var(--cream);}
+  .arcana-chevron{color:var(--cream-soft); transition:transform .25s;}
+  .arcana-item.open .arcana-chevron{transform:rotate(180deg);}
+  .arcana-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .arcana-item.open .arcana-body{max-height:420px;}
+  .arcana-body-inner{display:flex; gap:14px; align-items:flex-start; padding:2px 16px 16px 16px;}
+  .arcana-icon{
+    width:52px; height:52px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(160deg, var(--bg-card-2), var(--bg-card)); border:1.5px solid var(--gold);
+    display:flex; align-items:center; justify-content:center; color:var(--gold-bright);
+    box-shadow:0 6px 14px rgba(0,0,0,.25);
+  }
+  .arcana-icon svg{width:26px; height:26px;}
+  .arcana-body p{font-size:13.5px; color:var(--cream-soft); flex:1; margin:0; padding:0;}
+
+  /* ============ ОПЛАТА ============ */
+  .pay-methods{display:flex; flex-direction:column; gap:10px; margin-bottom:20px;}
+  .pay-method{background:linear-gradient(165deg, var(--bg-card-2), var(--bg-card)); border:1px solid var(--line); border-radius:12px; padding:14px 16px; display:flex; align-items:center; gap:12px; text-align:left;}
+  .pay-method.active-method{border-color:var(--gold);}
+  .pay-method[disabled]{opacity:.4; cursor:not-allowed;}
+  .pay-icon{width:24px; height:24px; flex-shrink:0; color:var(--gold);}
+  .pay-method-name{font-family:var(--f-body); font-weight:600; font-size:14px; flex:1; color:var(--cream);}
+  .pay-method-tag{font-size:10px; letter-spacing:.04em; text-transform:uppercase; font-weight:700; padding:3px 8px; border-radius:6px;}
+  .pay-method-tag.ready{background:rgba(63,161,132,.22); color:var(--emerald2);}
+  .pay-method-tag.soon{background:rgba(217,174,99,.2); color:var(--gold-bright);}
+  .pay-detail{display:none; background:var(--bg-deep); border:1px dashed var(--gold); border-radius:12px; padding:15px; margin-bottom:20px; font-size:13.5px; color:var(--cream-soft);}
+  .pay-detail.show{display:block;}
+  .pay-detail code{display:block; background:var(--bg); border-radius:8px; padding:10px; margin-top:8px; color:var(--gold-bright); font-size:12.5px; word-break:break-all;}
+
+  /* ============ FOOTER ============ */
+  .footer{text-align:center; padding:40px 24px 52px;}
+  .footer .wordmark{font-size:19px;}
+  .footer p{color:var(--cream-soft); font-size:13px; margin-top:12px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <svg class="spark" style="top:18px; left:14%; width:14px; height:14px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <svg class="spark" style="top:70px; right:10%; width:10px; height:10px; animation-delay:1.1s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <svg class="spark" style="top:130px; left:6%; width:9px; height:9px; animation-delay:2.3s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <svg class="spark" style="top:44px; right:26%; width:8px; height:8px; animation-delay:.4s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <svg class="ornament" style="bottom:2px; left:4%; width:24px; height:24px; transform:rotate(-8deg);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21V4"/><path d="M12 6.5l-3.4 1.6M12 8.5l3.4-1.6M12 10.5l-3.2 1.5M12 12.5l3.2-1.5M12 14.5l-2.8 1.3M12 16.5l2.8-1.3M12 18.3l-2 1M12 19.6l2-1"/></svg>
+
+    <svg class="lotus-glow" viewBox="0 0 60 90" fill="none" stroke="currentColor" stroke-width="1.3">
+      <g transform="translate(30,62)">
+        <path d="M0,0 C-7,-16 -5,-32 0,-40 C5,-32 7,-16 0,0 Z"/>
+        <g transform="rotate(-35)"><path d="M0,0 C-6,-13 -4,-27 0,-34 C4,-27 6,-13 0,0 Z"/></g>
+        <g transform="rotate(35)"><path d="M0,0 C-6,-13 -4,-27 0,-34 C4,-27 6,-13 0,0 Z"/></g>
+        <g transform="rotate(-68)"><path d="M0,0 C-5,-10 -3,-21 0,-26 C3,-21 5,-10 0,0 Z"/></g>
+        <g transform="rotate(68)"><path d="M0,0 C-5,-10 -3,-21 0,-26 C3,-21 5,-10 0,0 Z"/></g>
+      </g>
+      <circle cx="30" cy="16" r="1.6" fill="currentColor" stroke="none"/>
+      <circle cx="30" cy="9" r="1.1" fill="currentColor" stroke="none"/>
+      <circle cx="30" cy="68" r="1.6" fill="currentColor" stroke="none"/>
+      <circle cx="30" cy="75" r="1.1" fill="currentColor" stroke="none"/>
+    </svg>
+
+    <div class="wordmark-row">
+      <svg class="spark" style="position:static; width:13px; height:13px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+      <span class="wordmark">Magic Shelest</span>
+      <svg class="spark" style="position:static; width:13px; height:13px; animation-delay:1.2s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <img class="hero-photo" src="natalia-hero-v3.jpg" alt="Наталья Шелест">
+      </div>
+      <div class="hero-photo-glow-ring" aria-hidden="true"></div>
+    </div>
+
+    <p class="eyebrow">Эзотерика · Ментальная магия · Психокинетика</p>
+    <div class="hero-intro-wrap">
+      <svg class="celestial float" style="top:-16px; left:-8px; width:26px; height:26px;" viewBox="0 0 24 24" fill="currentColor"><path d="M15 3a9 9 0 100 18 7 7 0 010-18z"/></svg>
+      <svg class="celestial float" style="top:-14px; right:-6px; width:22px; height:22px; animation-delay:1.4s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.5 5.5l2 2M16.5 16.5l2 2M18.5 5.5l-2 2M7.5 16.5l-2 2"/></svg>
+      <svg class="celestial float" style="bottom:-14px; right:14%; width:24px; height:24px; animation-delay:.7s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="11" r="4.5" fill="currentColor" stroke="none"/><ellipse cx="12" cy="15" rx="9" ry="2.6" transform="rotate(-16 12 15)"/></svg>
+      <div class="hero-intro-card">
+        <p class="hero-intro"><span class="lead">Меня зовут Наталья Шелест</span>Я практикующий маг, и моя главная задача — не просто заглянуть в ваше будущее, а очистить ваше настоящее от всего, что мешает вам дышать полной грудью. Я вижу энергоцентры и вашу точку сборки не как цветной ореол, а как живой узор из света и теней, и часто этот рисунок искажён чужими взглядами, старыми обидами или энергетическими блоками, которые вы цепляете в повседневности и которые тянутся за вами из прошлых воплощений. Я не предсказываю судьбу — я читаю её энергетические чертежи, видя те нити, что связывают прошлое с будущим в настоящем моменте. Меняю ситуации для вашей счастливой жизни здесь и сейчас.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true" style="margin-bottom:-20px;">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+  </div>
+
+  <!-- ============ О НАТАЛЬЕ ============ -->
+  <!-- ============ ВЫБОР НАПРАВЛЕНИЯ ============ -->
+  <section class="section" style="padding-top:12px; padding-bottom:8px;">
+    <div class="category-tabs">
+      <button class="category-btn" data-cat="esoteric" onclick="switchCategory('esoteric')">Эзотерика</button>
+      <button class="category-btn" data-cat="astrology" onclick="switchCategory('astrology')">Астрология</button>
+    </div>
+    <button class="category-btn" style="width:100%; margin-top:14px; padding:20px 14px; font-size:17px;" data-cat="theurgy" onclick="switchCategory('theurgy')">Персональные Теургии Божествам</button>
+  </section>
+
+  <div class="category-panel" data-cat-panel="esoteric">
+  <section class="section about" style="padding-top:12px;">
+    <svg class="celestial float" style="top:6px; right:8%; width:20px; height:20px; opacity:.55;" viewBox="0 0 24 24" fill="currentColor"><path d="M15 3a9 9 0 100 18 7 7 0 010-18z"/></svg>
+    <svg class="spark" style="bottom:10px; left:5%; width:9px; height:9px; animation-delay:1.6s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <h2 class="eyebrow" style="display:block; text-align:center; margin-bottom:24px;">Методы работы</h2>
+    <div class="about-bio-wrap">
+      <svg class="wand" style="top:-10px; left:6%; width:22px; height:22px; transform:rotate(-12deg);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M15 3l1.5 1.5M19.5 7.5L21 9M3 15l1.5 1.5"/><circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"/></svg>
+      <svg class="wand" style="bottom:-8px; right:8%; width:18px; height:18px; transform:rotate(20deg); opacity:.4;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M15 3l1.5 1.5M19.5 7.5L21 9M3 15l1.5 1.5"/><circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"/></svg>
+      <svg class="wand" style="top:38%; right:-10px; width:16px; height:16px; transform:rotate(-70deg); opacity:.35;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M15 3l1.5 1.5M19.5 7.5L21 9M3 15l1.5 1.5"/><circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"/></svg>
+      <div class="about-bio-card">
+        <p class="about-bio">В своей работе я использую инструменты психокинетики, каналы древа Сефирот как инструменты. Провожу очищение от негатива, порч, проклятий, привязок и чёрной магии, а также утилизирую не адаптивных активных союзников.</p>
+        <p class="about-bio">Ремонтирую денежный канал и луч захвата, которые отвечают за финансы, доход и общее благосостояние. Работаю с родовыми каналами и активирую ваших денежных союзников. Также провожу теургии (обращения) к Божествам с нужными вам качествами по индивидуальному запросу (венец безбрачия, поиск партнёра, самооценка и т.д.)</p>
+      </div>
+    </div>
+  </section>
+    <div class="consult-wrap">
+      <div class="consult-card" style="padding:22px 18px;">
+        <div class="consult-shine" aria-hidden="true"></div>
+        <h2 style="font-size:19px; margin-bottom:8px;">Практики по очищению, восстановлению и наполнению ментальных тел</h2>
+        <p style="margin-bottom:8px; font-size:14px;">Работа с ментальным телом — снимаю чужие установки, застрявшие страхи и негативные программы, которые не дают жить в своём ритме.</p>
+        <div class="practice-item practice-item-large">
+          <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">13 канал <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="practice-body">
+            <p>Обнуление чакр до идеальных настроек, утилизация печатей посмертия, слив болезней, затирание каналов с бывшими партнёрами и неблагоприятными ситуациями, удаление лярв, порч, проклятий посредством канала. Защита тринадцатого канала.</p>
+            <p>Эта чистка про избавление от всякого деструктива, который вы цепляете ежедневно. На всё происходящее вокруг вы посмотрите другими глазами. Полная перезагрузка чакровой системы.</p>
+            <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">11 000 ₽</div>
+            <button class="service-order" onclick="sendPromptSafe('Хочу записаться на практику: 13 канал')">Записаться</button>
+          </div>
+        </div>
+        <div class="practice-item practice-item-xlarge">
+          <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">15 канал <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="practice-body">
+            <p>Восстановление серебряной нити жизни — основы вашего физического тела и жизненной энергии.</p>
+            <p>Создание вертикальных связей, притяжение монады (зачатие ребёнка), реализация планов, достижение целей, лёгкие сделки, клиенты, подарки, липкость, внимание окружающих или конкретного человека, деньги просто так, за улыбку, флирт, свидания, интересные предложения.</p>
+            <p>Горизонтальные связи между людьми: бизнес, партнёрские отношения, родственные и дружеские отношения, быстрая продажа авто или недвижимости.</p>
+            <p>Возвращение вашей энергии посредством заклинания «веретено». Огненная защита 15 аркана. Вся материя пронизана энергиями 15-го канала.</p>
+            <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">9000 ₽</div>
+            <button class="service-order" onclick="sendPromptSafe('Хочу записаться на практику: 15 канал')">Записаться</button>
+          </div>
+        </div>
+        <div class="practice-item practice-item-xlarge">
+          <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">16 канал <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="practice-body">
+            <p>Прошлые кармические воплощения, неадаптивные союзники проявляются в вашей сегодняшней жизни практически ежедневно, склоняя вас на безумные действия и активируя в вас болезни.</p>
+            <p>Это толпа духов от младенцев до глубоких стариков — это вы в прошлых воплощениях со своими проблемами и болячками. Если сейчас вас мучает вопрос: почему именно так с вами происходит, для чего вам дана та или иная ситуация, почему у вас появилась эта болезнь, почему вас обокрали или почему не выходит построить нормальные отношения — все ответы в 16 Аркане.</p>
+            <p>Там можно не только выявить неадаптивного союзника, который сейчас проявился и влияет на вашу жизнь, но и изменить, переписать прошлое воплощение с положительным исходом. Тем самым вы меняете свою жизнь здесь и сейчас с помощью практики через 16 канал.</p>
+            <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Один сеанс — 3800 ₽</div>
+            <button class="service-order" onclick="sendPromptSafe('Хочу записаться на практику: 16 канал')">Записаться</button>
+          </div>
+        </div>
+        <div class="practice-item practice-item-xlarge">
+          <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">10 канал <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="practice-body">
+            <p>Десятый канал — изменения судьбы, изменение линий вероятности. Быть включённым в этот канал значит включаться в системные процессы и считывать информацию о глобальных изменениях. Включение в 10 канал даёт возможность зацепить информацию из параллельных реальностей, где что-то происходит иначе, лучше для вас.</p>
+            <p>Сила 10 Аркана — способность менять реальность, формировать ваше будущее, чувствовать многовариантность и выбирать то, что вам необходимо здесь и сейчас. Эта работа затрагивает и самочувствие — старое состояние отпускает своё место новому.</p>
+            <p>Техника «золотое отражение» — где вы здоровы, успешны и счастливы в отношениях.</p>
+            <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Один сеанс — 4200 ₽</div>
+            <button class="service-order" onclick="sendPromptSafe('Хочу записаться на практику: 10 канал')">Записаться</button>
+          </div>
+        </div>
+        <div class="practice-item practice-item-xlarge">
+          <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">17 канал <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="practice-body">
+            <p>17-й канал представляет собой поток восстанавливающей энергии, духи Оли — это ментал растений, животных, которые помогают исцелять не только ментальное и физическое тело, но и эмоциональное состояние.</p>
+            <p>В канале идёт работа с самочувствием: наполнение кокона энергией жизни, восстановление сил и внутреннего ресурса.</p>
+            <p>Сила 17-го канала в энергии жизни. И за счёт потока этой энергии идёт восстановление сил и улучшение вашего физического самочувствия.</p>
+            <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Один сеанс — 3000 ₽</div>
+            <button class="service-order" onclick="sendPromptSafe('Хочу записаться на практику: 17 канал')">Записаться</button>
+          </div>
+        </div>
+        <div class="practice-item practice-item-xlarge">
+          <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Архетипирование <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="practice-body">
+            <p>Архетипирование — это раскрытие вашего кода рождения, где вы напрямую знакомитесь с самим собой: видите свои положительные и теневые стороны, понимаете систему своей мотивации.</p>
+            <p>Это про плюсы и минусы вашего характера, денежные блоки, которые мешают вашей реализации, блоки красоты. Раскрытие теневых сторон, в которых вы можете проживать жизнь, автоматически совершая ошибки кармы.</p>
+            <p>Положительные моменты, в которые нужно идти, меняя себя. Чёткая инструкция к выведению вашей личности на новый уровень.</p>
+            <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">4200 ₽</div>
+            <button class="service-order" onclick="sendPromptSafe('Хочу записаться на практику: архетипирование')">Записаться</button>
+          </div>
+        </div>
+        <div class="practice-item practice-item-xlarge">
+          <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Чакровая чистка <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="practice-body">
+            <p>Снятие блоков с семи энергетических центров, от которых зависят здоровье, уверенность и способность любить.</p>
+            <p>Блоки на чакрах негативно сказываются на качестве вашей жизни, мешая реализации намеченных целей, отнимая здоровье и не позволяя жизненной энергии восполняться.</p>
+            <p>После чакровой чистки вы получите ответы, которые ждали, отвалятся ненужные люди, в вашу жизнь ворвутся новые возможности, придёт осознание, если вы его ищете, спокойно начнёте принимать решения, которые боялись принять.</p>
+            <p>Защита огнём и заклинанием Триглава.</p>
+            <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">7000 ₽</div>
+            <button class="service-order" onclick="sendPromptSafe('Хочу записаться на практику: чакровая чистка')">Записаться</button>
+          </div>
+        </div>
+        <p style="font-family:var(--f-accent); color:var(--gold-bright); font-size:17px; text-align:center; margin-top:10px; line-height:1.3;">Не можешь определиться, что именно тебе нужно?<br>Запись на консультацию открыта.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="category-panel" data-cat-panel="astrology">
+    <section class="section" style="text-align:center; padding-top:12px;">
+      <h2 class="eyebrow" style="display:block; text-align:center; margin-bottom:24px;">Методы работы</h2>
+      <div class="about-bio-wrap">
+        <svg class="wand" style="top:-10px; left:6%; width:18px; height:18px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+        <svg class="wand" style="bottom:-8px; right:8%; width:15px; height:15px; opacity:.4;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+        <svg class="wand" style="top:38%; right:-8px; width:14px; height:14px; opacity:.35;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+        <div class="about-bio-card">
+          <p class="about-bio" style="margin-bottom:14px;">Разборы по траекториям планет — от прогноза на год до карты, которая указывает, где именно раскрывается каждая сфера жизни.</p>
+          <p class="about-bio">Момент твоего рождения — это уникальный код. Расположение планет формирует твою натальную карту, карту талантов и потенциала.</p>
+          <p class="about-bio">Зная её, ты понимаешь, где легче реализоваться, как строить отношения, когда действовать, а когда ждать. Следуя этим знаниям, можно прожить жизнь в её лучшем варианте.</p>
+          <p class="about-bio">Не судьба, а карта возможностей. Выбор только за тобой.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0; padding-bottom:0;">
+      <div class="consult-wrap">
+        <div class="consult-card" style="padding:22px 18px;">
+          <div class="consult-shine" aria-hidden="true"></div>
+
+          <div class="practice-item practice-item-xlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Солярный прогноз <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Что включает в себя солярный прогноз?</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Общие тенденции — важные события и изменения, которые могут произойти в течение года</li>
+                  <li>Основные сферы жизни, на которые стоит обратить внимание: работа, семья, путешествия</li>
+                  <li>Энергетические влияния — как планеты будут влиять на вашу жизнь в течение года</li>
+                  <li>Рекомендации — советы, как лучше использовать энергии года для достижения результатов (компенсаторные действия)</li>
+                </ul>
+              </div>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">7000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать солярный прогноз')">Записаться</button>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Кармические узлы <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Что такое кармические узлы с партнёром? Это понятие из эзотерики, означающее сильную, часто болезненную связь между двумя людьми, которая:</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Ощущается как уже знакомая, будто вы встретились раньше, хотя познакомились недавно</li>
+                  <li>Притягивает и отталкивает одновременно — сильное влечение сочетается с конфликтами, недопониманием, драмой</li>
+                  <li>Повторяет одни и те же сценарии: ссоры по одному и тому же поводу, расставания и возвращения — «американские горки» в отношениях</li>
+                  <li>Учит чему-то конкретному: считается, что такие отношения даны, чтобы проработать определённый урок — ревность, доверие, границы, страх одиночества и так далее</li>
+                </ul>
+              </div>
+              <p style="margin-top:12px;">Зачем знать про кармические узлы?</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Чтобы не винить себя и партнёра, а посмотреть на отношения как на процесс с определённой задачей</li>
+                  <li>Чтобы распознать повторяющийся паттерн</li>
+                  <li>Чтобы решить: оставаться или уходить</li>
+                </ul>
+              </div>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 4px;">Просмотр одной пары — 1800 ₽</div>
+              <p class="price-note" style="margin-bottom:10px;">Для просмотра нужны данные рождения — ваши и вашего партнёра</p>
+              <button class="service-order" onclick="sendPromptSafe('Хочу узнать про кармические узлы')">Записаться</button>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Астрокарты <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Астрокарта — это карта мира, на которую наносят линии по натальной карте человека. В разных точках планеты по-разному «включаются» стороны твоей личности и судьбы: где-то легче даётся любовь, где-то карьера, где-то, наоборот, накапливается напряжение и трудности.</p>
+              <p>Место ПМЖ или при путешествиях само по себе может усиливать одни качества человека и приглушать другие. Поэтому один и тот же человек в одном городе чувствует лёгкость и удачу, а в другом — постоянные препятствия, хотя внешне ничего не изменилось.</p>
+              <p>Этим объясняют, почему переезд или путешествие иногда ощущается как «попадание в своё место» — там будто всё складывается само собой. А иногда, наоборот, место словно «выжимает» человека, и там тяжело находиться долго.</p>
+              <p>На практике метод используют так: смотрят на карту, ищут зоны, которые совпадают с городом или регионом, где хочет жить или куда собирается человек, и по ним определяют, чего ждать от этого места — поддержки или сложностей.</p>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Разбор одного города — 1600 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу узнать про астрокарты')">Записаться</button>
+            </div>
+          </div>
+
+          <p style="font-family:var(--f-accent); color:var(--gold-bright); font-size:17px; text-align:center; margin-top:10px; line-height:1.3;">Не можешь определиться, что именно тебе нужно?<br>Запись на консультацию открыта.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="divider" aria-hidden="true" style="margin-top:-10px;">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+  </div>
+
+  <!-- ============ ГЛАВНОЕ: ЛИЧНАЯ КОНСУЛЬТАЦИЯ ============ -->
+  <section class="section" style="padding-top:0;">
+    <svg class="celestial float" style="top:14px; left:5%; width:19px; height:19px; opacity:.5; animation-delay:.9s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.5 5.5l2 2M16.5 16.5l2 2M18.5 5.5l-2 2M7.5 16.5l-2 2"/></svg>
+    <svg class="spark" style="top:60px; right:6%; width:11px; height:11px; animation-delay:.3s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <svg class="ornament" style="top:100px; left:3%; width:20px; height:20px; transform:rotate(6deg);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 4.2c-2.3 0-3.8 1.7-3.8 3.6 0 2.1 1.7 3.4 3.8 3.4s3.8-1.3 3.8-3.4c0-1.9-1.5-3.6-3.8-3.6z"/><path d="M10.3 6.6c.5.9 2.3.9 2.8 0"/><path d="M12 11.2V20"/><path d="M9.2 15.3c1.6-1 5-1 6 0M8.7 18c1.2-.7 2-.7 3.3 0"/></svg>
+    <div class="category-panel" data-cat-panel="theurgy">
+      <div class="consult-wrap" style="margin-top:18px;">
+        <div class="consult-card">
+          <div class="consult-shine" aria-hidden="true"></div>
+          <h2>Персональные Теургии Божествам</h2>
+          <p>Ритуальные обращения к Божествам, чьи качества отвечают именно вашему запросу — защита, любовь, изобилие, сила и другие темы. Подбираю индивидуально под вашу ситуацию.</p>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия 15 канал <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>15 аркан — это канал, проводящий энергию, во главе которого сам ангел Аркана Баф@мет.</p>
+              <p>Энергию Аркана проводят пары при половом акте, создавая луч захвата и притягивая свободную монаду в физический мир на воплощение.</p>
+              <p>15 аркан пронизывает весь мир насквозь и является рычагом управления. Энергией этого канала создаются связи между объектами, между людьми, между деньгами, между «хочу забеременеть». Это про деньги, про умение их зарабатывать, про статус и вашу реализацию.</p>
+              <p>15 канал содержит в себе серебряную нить. Это ваше здоровье, это ваша опора, которая истончается ежедневно, даже от банальной простуды. Проходит она вдоль позвоночника и дана нам на определённый период жизни. От её состояния зависит ваш уровень здоровья и дохода.</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Полное очищение чакр огнём</li>
+                  <li>Работа с денежным каналом и лучом захвата</li>
+                  <li>Ремонт серебряной нити</li>
+                  <li>Очищение нижнего подключения</li>
+                  <li>Удаление старых установок</li>
+                  <li>Чистка каналов с партнёром, начальником, детьми</li>
+                  <li>Отключение от негативных эгрегоров</li>
+                  <li>Работа с заклинанием «веретено»</li>
+                  <li>Защита 15-го Аркана огнём</li>
+                </ul>
+              </div>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию: 15 канал')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия богине Лилит <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Лилит — одна из самых загадочных и противоречивых фигур в мифологии и мистике. Её имя встречается в древних шумерских, вавилонских и еврейских текстах, а со временем образ Лилит стал символом независимости, силы и «тёмной женской энергии».</p>
+              <p>Независимость, женская сила, освобождение от чужих ожиданий и работа с теневой стороной себя.</p>
+              <p>Королева Лилит связана с чёрной луной и сильным инь-культом. Даёт доступ к древним ритуалам инь-магии. Если тебе не хватает уверенности в себе, не складываются новые отношения, на тебя не обращают внимания, не понимаешь, как раскрыть свою женскую привлекательную энергию, не можешь отстоять свои границы — тебе точно нужно посетить эту личную теургию.</p>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию богине Лилит')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия богине Маре <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Мара, Морена — богиня в славянской мифологии, связанная с сезонными обрядами умирания и воскресания природы. Покровительница загробного мира и Царства мёртвых.</p>
+              <p>Аспекты работы Мары: очищение от чёрной магии, работа с кармическими травмами, очищение родовых каналов, устранение чёрных печатей по роду, чистка негативных алгоритмов от союзников, снятие порч и чёрной магии, защита Мораны.</p>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию богине Маре')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия богине Афродите <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Афродита как богиня любви, красоты и плодородия традиционно ассоциируется с различными аспектами романтических и межличностных отношений. Вот несколько тем, по которым можно обращаться к ней с просьбами:</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Любовь и романтика</li>
+                  <li>Красота и уверенность в себе</li>
+                  <li>Плодородие и семья</li>
+                  <li>Гармония и счастье</li>
+                  <li>Творческое вдохновение</li>
+                </ul>
+              </div>
+              <p style="margin-top:12px;">Аспекты, по которым работает богиня:</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Гармонизация всех тонких тел</li>
+                  <li>Очищение от негатива, блоков и чёрных печатей</li>
+                  <li>Удаление венца безбрачия</li>
+                  <li>Снятие порч на красоту</li>
+                  <li>Увеличение параметров красоты и сексуальности</li>
+                  <li>Работа с вашей ситуацией, партнёрские отношения</li>
+                  <li>Рождение детей</li>
+                  <li>Бизнес и богатство</li>
+                  <li>Увеличение личной силы</li>
+                  <li>Печать Афродиты, защита Афродиты</li>
+                </ul>
+              </div>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию богине Афродите')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия богу Анубису <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Анубис — владыка подземного царства, лекарь, целитель, травник. В его арсенале много целительских техник:</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Чистка семи тел от негатива и смерти</li>
+                  <li>Очищение от печатей посмертия</li>
+                  <li>Снятие порч, приворотов, элементалей</li>
+                  <li>Работа над жизненным тонусом</li>
+                  <li>Утилизация чёрных печатей рода — унаследованных сценариев, которые тянутся из поколения в поколение</li>
+                  <li>Чистка каналов к родным и любимым</li>
+                  <li>Передача информации от умерших родственников</li>
+                </ul>
+              </div>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию богу Анубису')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия богу Ра <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Работа с Богом Ра полезна человеку в различных сферах. Бог Ра даёт статус и власть, делает человека значимым в социуме и в карьерном росте, приносит большие деньги. Дарует полезные связи, качества лидера, умение организовать структуру и бизнес. Приносит удачу в достижении целей и решении жизненных ситуаций.</p>
+              <p>Печати, которые даёт Бог Ра:</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Печать лорда территории</li>
+                  <li>Печать статуса и власти</li>
+                  <li>Печать защиты — золотая сфера</li>
+                </ul>
+              </div>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию богу Ра')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия божеству Ганеше <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Бог Ганеша работает с богатством и благополучием, даёт изобилие. Работает с бизнесом, даёт клиентский поток и защиту от конкурентов. Имеет сильный аспект огня, помогает в продвижении в социуме и торговле.</p>
+              <p>Печати, которые даёт Бог Ганеша:</p>
+              <div class="about-bio-list-wrap">
+                <ul class="about-bio-list">
+                  <li>Печать денег</li>
+                  <li>Печать «топорик Ганеши»</li>
+                  <li>Печать «великий купец»</li>
+                  <li>Печать огня</li>
+                </ul>
+              </div>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию божеству Ганеше')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия Золотому Тельцу <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Золотой телец — это искусственно созданный эгрегор денег.</p>
+              <p>Аспекты работы в канале Золотого Тельца: устранение денежных блоков и самоограничений, очищение вашей энергетики от различного негатива в финансовой сфере, снятие чёрных печатей бедности, банкротства и нищеты, наполнение денежного канала, увеличение его ёмкости, постановка защиты.</p>
+              <p>Золотой телец увеличивает вашу значимость в социуме, делает вас уважаемым человеком для других людей. Работа с Золотым Тельцом помогает улучшить качество жизни и повысить финансовое благополучие.</p>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию Золотому Тельцу')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия Иисусу <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Армянский монастырь Сурб-Хач — один из самых старинных в Крыму. В храме хранится известная икона, называемая «моргающий Иисус». Икона сделана так, что при взгляде на неё из любых положений Иисус то глядит на человека, то веки закрыты, то глаза наполнены кровью и слезами. Это изображение производит поистине неизгладимое впечатление на каждого, кто её видит.</p>
+              <p>Аспекты работы в канале «моргающего Иисуса»: улучшение инь-потока, очищение энергетики, улучшение общего самочувствия, работа с запросом и решение любых жизненных ситуаций и проблем.</p>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию Иисусу')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <div class="practice-item practice-item-xxlarge">
+            <button class="practice-head" onclick="this.parentElement.classList.toggle('open')">Теургия богине Бастет <svg class="practice-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="practice-body">
+              <p>Бастет ассоциируется с плодородием, и женщины, желающие забеременеть или улучшить свои отношения, могут обращаться к ней за поддержкой. Она олицетворяет силу независимой женщины, вдохновляя быть уверенной в себе и следовать своим желаниям. Помогает наладить гармонию в жизни, способствуя эмоциональному благополучию и внутреннему спокойствию.</p>
+              <p>Функционал Бастет: воплощение лучших женских качеств, инь-полярность, дарует женскую красоту, поддерживает женское здоровье и внутренний баланс. Матерей Бастет может наделить терпением, сделать их заботливыми, чуткими, ласковыми. Сильное целительство, гармонизация отношений, привлечение любви, плодородие во всех его аспектах (деньги, рождение проектов, достижение целей).</p>
+              <div class="price-now" style="font-size:20px; margin:2px 2px 12px;">Личная теургия — 15 000 ₽</div>
+              <button class="service-order" onclick="sendPromptSafe('Хочу заказать теургию богине Бастет')">Записаться</button>
+              <p class="telegram-callout">Чтобы записаться на общую теургию, следите за новостями в моём Telegram-канале.</p>
+              <a class="btn-ghost" href="https://t.me/TODO_channel_username" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:10px;">Перейти в Telegram-канал</a>
+            </div>
+          </div>
+
+          <p style="font-family:var(--f-accent); color:var(--gold-bright); font-size:17px; text-align:center; margin-top:16px; line-height:1.3;">Не можешь определиться, что именно тебе нужно?<br>Запись на консультацию открыта.</p>
+        </div>
+      </div>
+    </div>
+    <div class="consult-wrap" style="margin-top:18px;">
+      <div class="consult-card">
+        <div class="consult-bg-photo" aria-hidden="true"></div>
+        <div class="consult-bg-tint" aria-hidden="true"></div>
+        <div class="consult-shine" aria-hidden="true"></div>
+        <h2>Личная консультация</h2>
+        <p>Голосовые сообщения или видеозвонок на платформе Zoom, час на разговор. Никаких ботов и готовых шаблонов — рядом с вами буду я лично. Использую инструмент диагностики — карты Таро.</p>
+        <div class="consult-price">4000 <sup>₽</sup></div>
+        <button class="btn-primary" onclick="payUsdt('consult')">Оплатить в USDT · 4000 ₽</button>
+        <button class="btn-ghost" style="margin-top:10px;" onclick="showSbp()">Оплатить в рублях (СБП)</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true" style="margin-top:-36px;">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+  </div>
+
+  <!-- ============ ЕЩЁ СПОСОБЫ ============ -->
+  <section class="section" id="services" style="padding-top:12px;">
+    <svg class="celestial float" style="top:2px; right:7%; width:18px; height:18px; opacity:.5; animation-delay:1.8s;" viewBox="0 0 24 24" fill="currentColor"><path d="M15 3a9 9 0 100 18 7 7 0 010-18z"/></svg>
+    <svg class="spark" style="top:50px; left:4%; width:9px; height:9px; animation-delay:2.5s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <svg class="ornament" style="top:6px; right:22%; width:22px; height:22px; transform:rotate(15deg);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 20c4-1 4-6 7-9s5 1 8-4"/><circle cx="6.3" cy="15.5" r="1" fill="currentColor" stroke="none"/><circle cx="11" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    <button class="btn-primary" id="cardDayOpenBtn" onclick="toggleCardDay()" style="max-width:380px; margin:0 auto 20px; display:block;">Выбирай свою карту дня</button>
+
+    <div class="divider" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    </div>
+
+    <div id="cardDayWidget" style="display:none; text-align:center; margin-bottom:20px;">
+      <p id="cardDayIntro" style="font-family:var(--f-accent); color:var(--gold-bright); font-size:19px; margin-bottom:18px;">Сосредоточься на своём запросе и выбери карту</p>
+      <div class="tarot-deck" id="tarotDeck">
+        <div class="tarot-card-back"></div>
+        <div class="tarot-card-back"></div>
+        <div class="tarot-card-back"></div>
+      </div>
+      <button class="btn-ghost" id="drawCardBtn" onclick="drawCardOfDay()" style="max-width:260px; margin:20px auto 0;">Тянуть карту</button>
+      <div id="cardDayResult" style="display:none; margin-top:22px;"></div>
+    </div>
+  </section>
+
+  <!-- ============ ОПЛАТА ============ -->
+  <section class="section" id="payment" style="padding-top:12px; padding-bottom:16px;">
+    <svg class="celestial float" style="top:2px; right:6%; width:17px; height:17px; opacity:.5; animation-delay:1.1s;" viewBox="0 0 24 24" fill="currentColor"><path d="M15 3a9 9 0 100 18 7 7 0 010-18z"/></svg>
+    <svg class="spark" style="top:52px; left:5%; width:9px; height:9px; animation-delay:.2s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <svg class="ornament" style="top:4px; left:10%; width:20px; height:20px; transform:rotate(-14deg) scaleX(-1);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 20c4-1 4-6 7-9s5 1 8-4"/><circle cx="6.3" cy="15.5" r="1" fill="currentColor" stroke="none"/><circle cx="11" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    <p class="eyebrow" style="text-align:center; display:block; margin-bottom:8px;">Оплата</p>
+    <h2 class="section-title">Выберите способ</h2>
+    <p class="section-kicker">оплата картой и Ozon Pay появятся совсем скоро</p>
+
+    <div class="pay-methods">
+      <button class="pay-method active-method" data-pay="crypto">
+        <svg class="pay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 8.5h4a2 2 0 010 4H9m0 0h4.5a2 2 0 010 4H9M11 6v2M11 16v2"/></svg>
+        <span class="pay-method-name">Крипта · USDT (TRC-20)</span>
+        <span class="pay-method-tag ready">Готово</span>
+      </button>
+      <div class="pay-detail" id="detail-crypto">
+        Оплата в USDT — автоматическая. Нажмите кнопку <b>«Оплатить в USDT»</b> у нужной услуги:
+        бот сразу выставит счёт, а после оплаты доступ подтвердится сам — скрин присылать не нужно.
+      </div>
+
+      <button class="pay-method" data-pay="sbp">
+        <svg class="pay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 18h6"/></svg>
+        <span class="pay-method-name">СБП · перевод по номеру телефона</span>
+        <span class="pay-method-tag ready">Готово</span>
+      </button>
+      <div class="pay-detail" id="detail-sbp">
+        Переведите сумму через СБП в приложении любого банка (Сбер, Т-Банк, Совкомбанк и др.) на номер:
+        <code>TODO_НОМЕР_ТЕЛЕФОНА</code>
+        <button class="btn-ghost" style="margin-top:10px;" onclick="copyText('TODO_НОМЕР_ТЕЛЕФОНА')">Скопировать номер</button>
+        Банк-получатель значения не имеет — деньги дойдут в любом случае.
+        После перевода пришлите скрин в бот — доступ откроется вручную.
+      </div>
+
+      <button class="pay-method" data-pay="card" disabled>
+        <svg class="pay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <span class="pay-method-name">Банковская карта</span>
+        <span class="pay-method-tag soon">Скоро</span>
+      </button>
+
+      <button class="pay-method" data-pay="ozon" disabled>
+        <svg class="pay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
+        <span class="pay-method-name">Ozon Pay</span>
+        <span class="pay-method-tag soon">Скоро</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <section class="footer" style="position:relative; padding-top:8px;">
+    <div class="wordmark">с любовью, Magic Shelest</div>
+    <p>Есть вопрос до заказа?</p>
+    <a class="btn-ghost" style="margin-top:14px; display:inline-block; width:auto; padding:12px 28px;" href="https://t.me/TODO_username_natalii" target="_blank" rel="noopener">Написать в Telegram</a>
+  </section>
+
+</div>
+
+<script>
+  var tg = window.Telegram && window.Telegram.WebApp;
+  if (tg) { tg.ready(); tg.expand(); }
+
+  /* ===== КОНФИГ — заполнить после деплоя (find & replace по TODO_) ===== */
+  var CONFIG = {
+    API_BASE: 'TODO_BOT_SERVER_URL',   // публичный URL бота на Railway, напр. https://xxx.up.railway.app
+    NATALIA:  'TODO_username_natalii'  // личный username Натальи (без @)
+  };
+
+  function toast(msg){ if (tg && tg.showAlert) { tg.showAlert(msg); } else { alert(msg); } }
+
+  function openTg(url){
+    if (tg && tg.openTelegramLink && url.indexOf('t.me') > -1) { tg.openTelegramLink(url); }
+    else { window.open(url, '_blank'); }
+  }
+
+  /* Открыть чат с Натальей — для вопросов до заказа */
+  function sendPromptSafe(text){ openTg('https://t.me/' + CONFIG.NATALIA); }
+
+  /* Оплата услуги в USDT через CryptoBot (автоматически) */
+  async function payUsdt(productId){
+    if (!tg || !tg.initData){
+      toast('Оплата доступна только внутри Telegram — откройте приложение через бота.');
+      return;
+    }
+    try {
+      var res = await fetch(CONFIG.API_BASE + '/api/create-invoice', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ init_data: tg.initData, product_id: productId })
+      });
+      var data = await res.json();
+      if (data.ok && data.pay_url){ openTg(data.pay_url); }
+      else { toast('Не удалось создать счёт. Попробуйте позже.'); }
+    } catch(e){ toast('Ошибка соединения с сервером оплаты.'); }
+  }
+
+  /* Бесплатная заявка «Записаться» — уведомляет Наталью через бота */
+  async function bookLead(productId, title){
+    if (!tg || !tg.initData){ openTg('https://t.me/' + CONFIG.NATALIA); return; }
+    try {
+      var res = await fetch(CONFIG.API_BASE + '/api/lead', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ init_data: tg.initData, product_id: productId, title: title })
+      });
+      var data = await res.json();
+      if (data.ok){ toast('Заявка отправлена! Наталья скоро напишет вам ✨'); }
+      else { openTg('https://t.me/' + CONFIG.NATALIA); }
+    } catch(e){ openTg('https://t.me/' + CONFIG.NATALIA); }
+  }
+
+  /* Копирование номера/адреса в один тап */
+  function copyText(text){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(
+        function(){ toast('Скопировано: ' + text); },
+        function(){ toast(text); });
+    } else { toast(text); }
+  }
+
+  /* Прокрутить к оплате и открыть способ СБП */
+  function showSbp(){
+    var sec = document.getElementById('payment');
+    var sbpBtn = document.querySelector('.pay-method[data-pay="sbp"]');
+    if (sbpBtn) { sbpBtn.click(); }
+    if (sec) { sec.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }
+
+  function switchCategory(cat){
+    const btn = document.querySelector('.category-btn[data-cat="'+cat+'"]');
+    const panel = document.querySelector('.category-panel[data-cat-panel="'+cat+'"]');
+    const opening = !panel.classList.contains('active');
+    btn.classList.toggle('active', opening);
+    panel.classList.toggle('active', opening);
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector('.tab-panel[data-panel="'+btn.dataset.tab+'"]').classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('.pay-method').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if (btn.disabled) return;
+      document.querySelectorAll('.pay-method').forEach(b=>b.classList.remove('active-method'));
+      document.querySelectorAll('.pay-detail').forEach(d=>d.classList.remove('show'));
+      btn.classList.add('active-method');
+      const detail = document.getElementById('detail-' + btn.dataset.pay);
+      if (detail) detail.classList.add('show');
+    });
+  });
+  document.getElementById('detail-crypto').classList.add('show');
+
+  const arcana = [
+    ['0','Шут','Новое начало, чистый лист. Здесь мало опыта, зато много доверия к тому, что будет дальше. Вас ждёт чистый лист, начало нового этапа или свежий взгляд на ситуацию. Благоприятны новые проекты, путешествия и нестандартные подходы. Доверьтесь интуиции!','<path d="M17 3c-6 1-10 6-11 13l-2 5 5-2c7-1 12-5 13-11-2 2-5 3-8 3 2-2 3-5 3-8z"/>'],
+    ['I','Маг','Всё нужное для старта уже в руках — идеи, слова, инструменты. Осталось начать действовать. У вас есть все необходимые навыки, ресурсы и творческая энергия, чтобы воплотить задуманное в реальность собственными силами.','<path d="M6 18L18 6M15 3l1.5 1.5M19.5 7.5L21 9M3 15l1.5 1.5"/><circle cx="18" cy="6" r="1.3" fill="currentColor" stroke="none"/>'],
+    ['II','Верховная Жрица','Ответ ещё не оформился в слова. Стоит помолчать и прислушаться к себе, прежде чем решать. Вместо активных действий советую прислушаться к интуиции, довериться времени и изучить скрытые детали ситуации.','<path d="M15 3a9 9 0 100 18 7 7 0 010-18z"/>'],
+    ['III','Императрица','Время роста и изобилия. Забота о себе и других приносит плоды, не требуя спешки. Тебя ждёт успех, процветание и реализация задуманного, особенно в сферах, связанных с творчеством, бизнесом, материнством или новыми начинаниями.','<circle cx="12" cy="9" r="3"/><path d="M12 12v9M8 15c1-1 2-1 4 0M16 15c-1-1-2-1-4 0"/>'],
+    ['IV','Император','Нужна структура: чёткие границы, порядок, взятая на себя ответственность. Нужна помощь? Можешь смело обратиться за ней к авторитету, тебя поддержит влиятельный покровитель.','<path d="M4 18h16M5 18l-1-9 4 3 4-6 4 6 4-3-1 9"/>'],
+    ['V','Иерофант','Опора на проверенный путь, наставника или традицию — там, где хочется меньше импровизации. Следуй правилам, придерживайся морали и обязательно официально оформляй дела. В принятии решений опирайся на проверенный опыт и общепринятые нормы.','<circle cx="7" cy="7" r="3"/><path d="M9 9l10 10M17 15l3-3M15 17l3 3"/>'],
+    ['VI','Влюблённые','Выбор, от которого многое зависит: союз, ценности, кому доверять дальше. В твою жизнь скоро войдёт любовь, или отношения вспыхнут с новой силой, однако решение нужно принимать сердцем, доверяя своему внутреннему голосу. Инициация взросления в твоём выборе.','<path d="M12 20C5 15 3 11 3 7.5A4.5 4.5 0 0112 5a4.5 4.5 0 019 2.5C21 11 19 15 12 20z"/><path d="M4 4l16 16"/>'],
+    ['VII','Колесница','Ситуация требует воли и направления. Победа возможна — но через собранность, а не сама собой. Твой путь открыт, успех зависит от твоей воли и дисциплины, а для решения ситуации нужно действовать решительно.','<circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7"/>'],
+    ['VIII','Сила','Не подавление, а мягкое укрощение — своих страхов, чужого напора, обстоятельств. Победа достигается не агрессией, а мягким контролем, терпением и внутренней уверенностью. Не подавляй эмоции или препятствия, а управляй ими с помощью мудрости, выдержки и любви.','<path d="M6 9a3 3 0 000 6c2 0 3-2 6-6 3 4 4 6 6 6a3 3 0 000-6c-2 0-3 2-6 6-3-4-4-6-6-6z"/>'],
+    ['IX','Отшельник','Пора ненадолго остаться одному. Ответ, который ищете, — внутри, а не в советах извне. Сейчас не время для активных действий, общения или спешки. Истинный ответ кроется внутри тебя, и для его поиска необходимы уединение, самоанализ и тишина.','<path d="M9 3h6M12 3v3M8 8h8l1 11a2 2 0 01-2 2H9a2 2 0 01-2-2z"/><circle cx="12" cy="13" r="2"/>'],
+    ['X','Колесо Фортуны','Обстоятельства меняются сами, по своему циклу. Держаться за старое смысла нет. Ситуация изменится в твою пользу, если ты проявишь готовность довериться обстоятельствам. События будут развиваться стремительно, и вмешательство извне сыграет главную роль.','<circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3M6.3 6.3l2 2M15.7 15.7l2 2M17.7 6.3l-2 2M8.3 15.7l-2 2"/>'],
+    ['XI','Справедливость','Честный расчёт: что посеяли, то и получите. Решение должно быть взвешенным. Руководствуйся логикой и холодным расчётом, а не эмоциями. Всё тайное станет явным, и каждый получит по заслугам — и ты в том числе, если действуешь лживо.','<path d="M12 3v18M6 7h12M6 7l-3 6a3 3 0 006 0zM18 7l-3 6a3 3 0 006 0zM8 21h8"/>'],
+    ['XII','Повешенный','Пауза, а не тупик. Иногда нужно временно отпустить контроль, чтобы увидеть иначе. Необходимо отпустить контроль, пересмотреть свои взгляды и временно приостановить активные действия — ускорить процесс не удастся. Ожидание будет верным решением.','<circle cx="12" cy="6" r="2.5"/><path d="M12 8.5v3M8 20l4-8.5 4 8.5"/>'],
+    ['XIII','Смерть','Один этап действительно закончился. Пугает не сама карта, а сопротивление переменам. Ситуация кардинально изменится, прежним всё уже не останется. Меняйся, отпускай, иди в новое с лёгкостью.','<path d="M7 3h10M7 21h10M7 3c0 5 4 6 5 6s5-1 5-6M7 21c0-5 4-6 5-6s5 1 5 6"/>'],
+    ['XIV','Умеренность','Две крайности можно соединить без борьбы — если не торопиться и искать баланс. Будь спокойнее. События будут развиваться неторопливо, но гармонично. И лучше отдохни.','<circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/><path d="M9 12c1-2 5-2 6 0"/>'],
+    ['XV','Дьявол','Что-то держит крепче, чем кажется: привычка, зависимость, страх остаться без этого. Искушения, страсти, скрытые зависимости и материальные привязки. Предупреждаю о потере контроля, но выбор всегда остаётся за вами.','<rect x="4" y="8" width="7" height="10" rx="3.5"/><rect x="13" y="6" width="7" height="10" rx="3.5"/><path d="M9 18l2 3M18 6l-2-3"/>'],
+    ['XVI','Башня','Резкая, но давно назревшая перемена. То, что рушится, всё равно не было прочным. Привычный порядок вещей будет резко нарушен, но это освободит место для нового опыта. Эмоции держи под контролем.','<path d="M13 2L4 14h6l-2 8 10-13h-6l1-7z"/>'],
+    ['XVII','Звезда','После тяжёлого периода — тихая надежда. Не громкая победа, а спокойная вера, что дальше легче. Всё получится, если ты проявишь терпение, сохранишь оптимизм и не будешь торопить события.','<path d="M12 2v5M12 17v5M2 12h5M17 12h5M4.5 4.5l3.5 3.5M16 16l3.5 3.5M19.5 4.5L16 8M8 16l-3.5 3.5"/><circle cx="12" cy="12" r="2"/>'],
+    ['XVIII','Луна','Не всё видно ясно, есть тревога и недосказанность. Двигаться стоит осторожно, доверяя интуиции. Период неопределённости, скрытые страхи или наличие иллюзий. Советую не принимать поспешных решений, прислушайся к внутреннему голосу и доверься своим снам или предчувствиям.','<path d="M15 3a9 9 0 100 18 7 7 0 010-18z"/><circle cx="19" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="21" cy="11" r="0.7" fill="currentColor" stroke="none"/>'],
+    ['XIX','Солнце','Ясность, лёгкость, исполнение желаний. Ты находишься на верном пути, в твоей жизни начинается светлая полоса, а любые проблемы разрешатся благополучно.','<circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>'],
+    ['XX','Суд','Момент подведения итогов и второго шанса — можно взглянуть на прошлое иначе и пойти дальше. Глобальное твоё обновление, освобождение от прошлого и переход на новый жизненный этап. Да, это переломный момент, когда ситуация разрешается благодаря ясному пониманию, принятию правильного решения или «пробуждению».','<path d="M3 12h9l6-5v10l-6-5M12 12v3a2 2 0 01-2 2H8"/>'],
+    ['XXI','Мир','Цикл завершён, цель достигнута. Ощущение целостности — точка, а не многоточие. Ты находишься на своём месте, есть внутренний покой, и ты получишь заслуженную награду за свои труды.','<path d="M12 4c-5 2-7 8-4 15M12 4c5 2 7 8 4 15"/><circle cx="12" cy="12" r="2"/>'],
+  ];
+
+  const spreadLayouts = {
+    three: { title: 'Три карты', positions: ['Прошлое','Настоящее','Будущее'] },
+    celtic: { title: 'Кельтский крест', positions: ['Текущая ситуация','Вызов, который предстоит пройти','Основа — то, что привело к этому','Недавнее прошлое','Возможный исход','Ближайшее будущее','Вы сейчас, ваше отношение к вопросу','Внешнее влияние, окружение','Надежды и страхи','Итог'] },
+    relationship: { title: 'На отношения', positions: ['Вы в этих отношениях','Партнёр в этих отношениях','Что вас связывает','Что скрыто, но влияет','К чему всё идёт'] },
+    path: { title: 'Выбор пути', positions: ['Ситуация сейчас','Путь А — что вас ждёт','Путь А — итог','Путь Б — что вас ждёт','Путь Б — итог'] }
+  };
+
+  function drawSpread(type){
+    const layout = spreadLayouts[type];
+    const result = document.getElementById('spreadResult');
+    const shuffled = [...arcana].sort(()=>Math.random()-0.5);
+    const drawn = shuffled.slice(0, layout.positions.length);
+
+    let html = '<h3 style="text-align:center; font-family:var(--f-display); font-style:italic; color:var(--gold-bright); font-size:19px; margin-bottom:16px;">' + layout.title + '</h3>';
+    layout.positions.forEach((pos, i)=>{
+      const card = drawn[i];
+      html +=
+        '<div class="spread-result-item">' +
+          '<div class="pos-label">' + pos + '</div>' +
+          '<div class="card-name">' + card[0] + '. ' + card[1] + '</div>' +
+          '<div class="card-meaning">' + card[2] + '</div>' +
+        '</div>';
+    });
+    result.innerHTML = html;
+    result.style.display = 'block';
+    result.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function renderCardHTML(card){
+    return '<div class="tarot-result-card">' +
+        '<div style="font-family:var(--f-display); font-style:italic; color:var(--gold-bright); font-size:14px; margin-bottom:6px;">' + card[0] + '</div>' +
+        '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--gold-bright)" stroke-width="1.4" style="margin-bottom:10px;">' + card[3] + '</svg>' +
+        '<div style="font-family:var(--f-display); font-weight:600; color:var(--cream); font-size:17px; margin-bottom:10px;">' + card[1] + '</div>' +
+        '<div style="font-size:13px; color:var(--cream-soft); line-height:1.45;">' + card[2] + '</div>' +
+      '</div>';
+  }
+
+  function formatTimeLeft(ms){
+    const h = Math.floor(ms / 3600000);
+    const m = Math.floor((ms % 3600000) / 60000);
+    if (h > 0) return h + ' ч ' + m + ' мин';
+    return m + ' мин';
+  }
+
+  function getLastResetThreshold(now){
+    const d = new Date(now);
+    d.setHours(7,0,0,0);
+    if (d.getTime() > now) d.setDate(d.getDate() - 1);
+    return d.getTime();
+  }
+
+  function getNextResetTime(now){
+    const d = new Date(now);
+    d.setHours(7,0,0,0);
+    if (d.getTime() <= now) d.setDate(d.getDate() + 1);
+    return d.getTime();
+  }
+
+  function toggleCardDay(){
+    const widget = document.getElementById('cardDayWidget');
+    const isOpen = widget.style.display === 'block';
+    if (isOpen) { widget.style.display = 'none'; return; }
+    widget.style.display = 'block';
+    checkCardCooldown();
+  }
+
+  function checkCardCooldown(){
+    const deck = document.getElementById('tarotDeck');
+    const drawBtn = document.getElementById('drawCardBtn');
+    const result = document.getElementById('cardDayResult');
+    const intro = document.getElementById('cardDayIntro');
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem('mysticCardOfDay')); } catch(e){}
+
+    const now = Date.now();
+    const threshold = getLastResetThreshold(now);
+
+    if (saved && saved.time && saved.time >= threshold){
+      const card = arcana[saved.cardIndex];
+      deck.style.display = 'none';
+      drawBtn.style.display = 'none';
+      intro.textContent = 'Твоя карта дня уже выбрана';
+      result.innerHTML = renderCardHTML(card) +
+        '<p style="color:var(--cream-soft); font-size:12.5px; margin-top:12px;">Новая карта будет доступна через ' + formatTimeLeft(getNextResetTime(now) - now) + '</p>';
+      result.style.display = 'block';
+    } else {
+      deck.style.display = 'flex';
+      drawBtn.style.display = 'block';
+      drawBtn.disabled = false;
+      drawBtn.textContent = 'Тянуть карту';
+      intro.textContent = 'Сосредоточься на своём запросе и выбери карту';
+      result.style.display = 'none';
+    }
+  }
+
+  function drawCardOfDay(){
+    const deck = document.getElementById('tarotDeck');
+    const drawBtn = document.getElementById('drawCardBtn');
+    const result = document.getElementById('cardDayResult');
+    drawBtn.disabled = true;
+    result.style.display = 'none';
+    deck.classList.add('shuffling');
+
+    setTimeout(()=>{
+      deck.classList.remove('shuffling');
+      const cardIndex = Math.floor(Math.random()*arcana.length);
+      const card = arcana[cardIndex];
+      try { localStorage.setItem('mysticCardOfDay', JSON.stringify({time: Date.now(), cardIndex: cardIndex})); } catch(e){}
+      result.innerHTML = renderCardHTML(card);
+      result.style.display = 'block';
+      deck.style.display = 'none';
+      drawBtn.style.display = 'none';
+    }, 1400);
+  }
+</script>
+</body>
+</html>
